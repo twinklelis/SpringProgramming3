@@ -19,18 +19,13 @@
 		in the /WEB-INF/views directory -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="prefix" value="/WEB-INF/views2/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<context:component-scan base-package="com.mycompany.web" />
+	<context:component-scan base-package="com.mycompany.web2" />
 
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 	<!-- ↑↑ 파일 업로드를 위해서 Spring 관리 객체로 만듬 ↑↑ -->
-	
-	<bean id="ch09Service" class="com.mycompany.web.service.Ch09Service">
-		<constructor-arg name="arg1" value="이작별"></constructor-arg>
-		<constructor-arg name="arg2" value="10"></constructor-arg>
-	</bean>
 </beans>
