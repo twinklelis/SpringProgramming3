@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member"><!-- namespace : 해당 xml파일의 식별 이름 -->
+	<select id="selectMemberByMid" parameterType="string" resultMap="resultMember">
+	  select mid, mname, mpassword from member where mid=#{mid}
+	</select>
+	<!-- parameterType="string" ,  select~ -->
+	<!-- DTO -> SQL 로 만드는 코드 -->
+	<!-- resultMap="resultMember" , resultMap -->
+	<!-- 결과 -> DTO 로 만드는 코드 -->
+	<resultMap id="resultMember" type="com.mycompany.web.dto.Ch10Member">
+		<result column="mid" property="mid"></result>
+		<result column="mname" property="mname"></result>
+		<result column="mpassword" property="mpassword"></result>
+	</resultMap>
+</mapper>
