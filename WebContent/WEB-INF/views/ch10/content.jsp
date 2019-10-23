@@ -39,8 +39,11 @@
 			<div id="div1"></div>
 		</p>
 		<p>
-			<button id="btn2" onclick="btn2Click()" type="button" class="btn btn-primary">Test</button>
+			<button id="btn2" onclick="btn2Click()" type="button" class="btn btn-primary">멤버 정보 가져오기</button>
 			<div id="div2"></div>
+		</p>
+		<p>
+			<a href="boardList?pageNo=1" class="btn btn-primary">게시판</a>
 		</p>
 	</body>
 </html>

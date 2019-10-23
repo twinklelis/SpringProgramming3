@@ -1,3 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="board"></mapper>
+<mapper namespace="board">
+	<select id="selectList" parameterType="map" resultType="com.mycompany.web.dto.Ch10Board"> <!-- 결과를 dto로 만드는것 -->
+		select rn, bno, btitle, bwriter, bhitcount, bdate
+		from
+		(
+		    select rownum as rn, bno, btitle, bwriter, bhitcount, bdate
+		    from(
+		        select bno, btitle, bwriter, bhitcount, bdate
+		        from board
+		        order by bno desc
+		    )
+		    where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	
+	<select id="selectBoard" parameterType="int" resultType="com.mycompany.web.dto.Ch10Board">
+		select bno, btitle, bcontent, bwriter, bhitcount, bdate from board where bno=#{bno}
+	</select>
+	
+	<select id="selectTotalRowNum" resultType="int">
+		select count(*) from board
+	</select>
+	
+	<insert id="insert" parameterType="com.mycompany.web.dto.Ch10Board"> <!-- dto를 sql로 만드는것 -->
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE"> <!-- 아래의 sql문을 실행하기 전에 먼저 실행하라는 뜻 -->
+			select board_bno_seq.nextval from dual
+		</selectKey> <!-- 위의 sql문으로 가져온 값을  com.mycompany.web.dto.Ch10Board의 bno로 넣는다-->
+		insert into board(bno, btitle, bcontent, bwriter, bhitcount, bdate)
+		values(#{bno}, #{btitle}, #{bcontent}, #{bwriter}, 0, sysdate)
+	</insert>
+	
+	<update id="updateHitcount" parameterType="int">
+		update board set bhitcount = bhitcount+1 where bno=#{bno}
+	</update>
+	
+	<update id="updateBoard" parameterType="com.mycompany.web.dto.Ch10Board">
+		update board set btitle = #{btitle}, bcontent = #{bcontent} where bno=#{bno}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where bno=#{bno}
+	</delete>
+</mapper>
